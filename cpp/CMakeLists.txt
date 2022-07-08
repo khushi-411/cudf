@@ -169,7 +169,7 @@ include(cmake/thirdparty/get_kvikio.cmake)
 if(NOT BUILD_SHARED_LIBS)
   include("${rapids-cmake-dir}/export/find_package_file.cmake")
   list(APPEND METADATA_KINDS BUILD INSTALL)
-  list(APPEND dependencies cuco KvikIO ZLIB nvcomp)
+  list(APPEND dependencies KvikIO ZLIB nvcomp)
   if(TARGET cufile::cuFile_interface)
     list(APPEND dependencies cuFile)
   endif()
@@ -431,6 +431,8 @@ add_library(
   src/rolling/range_window_bounds.cpp
   src/rolling/rolling.cu
   src/rolling/rolling_collect_list.cu
+  src/rolling/rolling_detail_fixed_window.cu
+  src/rolling/rolling_detail_variable_window.cu
   src/round/round.cu
   src/scalar/scalar.cpp
   src/scalar/scalar_factories.cpp
