@@ -77,7 +77,7 @@ class table_view_base {
    *
    * @param cols The vector of columns to construct the table from
    */
-  explicit table_view_base(std::vector<ColumnView> const& cols);
+  explicit table_view_base(host_span<ColumnView const> cols);
 
   /**
    * @brief Returns an iterator to the first view in the `table`.
@@ -201,7 +201,7 @@ class table_view : public detail::table_view_base<column_view> {
    *
    * @param views The vector of table views to construct the table from
    */
-  table_view(std::vector<table_view> const& views);
+  table_view(host_span<table_view const> views);
 
   /**
    * @brief Returns a table_view built from a range of column indices.
@@ -232,7 +232,7 @@ class table_view : public detail::table_view_base<column_view> {
    * @return A table_view consisting of columns from the original table
    * specified by the elements of `column_indices`
    */
-  [[nodiscard]] table_view select(std::vector<size_type> const& column_indices) const;
+  [[nodiscard]] table_view select(host_span<size_type const> column_indices) const;
 };
 
 /**
@@ -284,7 +284,7 @@ class mutable_table_view : public detail::table_view_base<mutable_column_view> {
    *
    * @param views The vector of table views to construct the table from
    */
-  mutable_table_view(std::vector<mutable_table_view> const& views);
+  mutable_table_view(host_span<mutable_table_view const> views);
 };
 
 /**
@@ -366,7 +366,7 @@ inline bool have_same_types(table_view const& lhs, table_view const& rhs)
  * @return New table_view.
  */
 table_view scatter_columns(table_view const& source,
-                           std::vector<size_type> const& map,
+                           host_span<size_type const> map,
                            table_view const& target);
 
 namespace detail {
